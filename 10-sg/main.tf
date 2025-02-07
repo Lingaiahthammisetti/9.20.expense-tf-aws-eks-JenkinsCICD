@@ -152,3 +152,4 @@ resource "aws_security_group_rule" "node_ingress" {
     source_security_group_id = module.ingress.sg_id # source is where you are getting traffic from.
     security_group_id = module.node.sg_id  
 }
+
