@@ -101,7 +101,15 @@ resource "aws_security_group_rule" "node_cluster" {
     source_security_group_id = module.cluster.sg_id 
     security_group_id = module.node.sg_id  
 }
-
+#EKS Cluster accepting all traffic from jenkins agent
+resource "aws_security_group_rule" "jenkins-agent_cluster" {
+    type = "ingress"
+    from_port = 0
+    to_port =  65535
+    protocol = "-1" # All traffic
+    cidr_blocks = ["172.31.0.0/16"]
+    security_group_id = module.cluster.sg_id  
+}
 # #Node is accepting  traffic from ingress
 resource "aws_security_group_rule" "node_ingress" {
     type = "ingress"
