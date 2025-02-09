@@ -1,16 +1,16 @@
 - name: SG Rules
   
-#These all Security group rules
-# "bastion_public"  22
-# "cluster_bastion"  443
-# "cluster_node"   0 to 65535
-# "node_cluster"   0 to 65535
-# "node_vpc"       0 to 65535
-# "db_bastion"   3306
-# "db_node"      3306
-# "ingress_public_https" 443
-# "ingress_public_http"  80
-# "node_ingress"   30000 -32768
+These all Security group rules
+"bastion_public"  22
+"cluster_bastion"  443
+"cluster_node"   0 to 65535
+"node_cluster"   0 to 65535
+"node_vpc"       0 to 65535
+"db_bastion"   3306
+"db_node"      3306
+"ingress_public_https" 443
+"ingress_public_http"  80
+"node_ingress"   30000 -32768
 
   sg:
   - expense-dev-db
@@ -90,7 +90,7 @@
     desc: bastion accepting connections from public
     source: public #ideally your home IP address/32
     port: 443
-  vpn:
+ vpn:
    - name: vpn_public
      desc: vpn accepting connections from public
      source: public

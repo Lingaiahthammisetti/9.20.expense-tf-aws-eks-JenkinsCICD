@@ -5,12 +5,10 @@ variable "environment" {
    default =  "dev"
 }
 variable "common_tags" {
+    type = map
     default = {
         Terraform = "true"
-        Environment = "dev"
+        Environment = "Dev"
         Project = "expense"
     }
-}
-variable "zone_name" {
-  default =  "lingaiah.online"
 }

@@ -9,7 +9,7 @@ resource "aws_lb" "ingress_alb" {
     tags =merge(
         var.common_tags,
         {
-            Name ="${var.project_name}-${var.environment}-ingress-alb"
+            name ="${var.project_name}-${var.environment}-ingress-alb"
         }
     )
 }

@@ -50,7 +50,6 @@ vpc_id =  data.aws_ssm_parameter.vpc_id.value #We are getting the vpc_id from SS
 common_tags = var.common_tags
 sg_name = "bastion"
 }
-
 module "vpn" {
 #source ="../../5.12.terraform-aws-securitygroup"
 source ="git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
@@ -72,7 +71,6 @@ resource "aws_security_group_rule" "bastion_public" {
     cidr_blocks = ["0.0.0.0/0"]
     security_group_id = module.bastion.sg_id
 }
-
 #EKS Cluster can be accessed from bastion host
 resource "aws_security_group_rule" "cluster_bastion" {
     type = "ingress"
@@ -82,7 +80,6 @@ resource "aws_security_group_rule" "cluster_bastion" {
     source_security_group_id = module.bastion.sg_id # source is where you are getting traffic from.
     security_group_id = module.cluster.sg_id  
 }
-
 # #EKS Cluster plane accepting all traffic from nodes
 resource "aws_security_group_rule" "cluster_node" {
     type = "ingress"
@@ -99,24 +96,6 @@ resource "aws_security_group_rule" "node_cluster" {
     to_port =  65535
     protocol = "-1" # All traffic
     source_security_group_id = module.cluster.sg_id 
-    security_group_id = module.node.sg_id  
-}
-#EKS Cluster accepting all traffic from jenkins agent
-resource "aws_security_group_rule" "jenkins-agent_cluster" {
-    type = "ingress"
-    from_port = 0
-    to_port =  65535
-    protocol = "-1" # All traffic
-    cidr_blocks = ["172.31.0.0/16"]
-    security_group_id = module.cluster.sg_id  
-}
-# #Node is accepting  traffic from ingress
-resource "aws_security_group_rule" "node_ingress" {
-    type = "ingress"
-    from_port = 30000
-    to_port =  32768
-    protocol = "tcp" #All traffic
-    source_security_group_id = module.ingress.sg_id # source is where you are getting traffic from.
     security_group_id = module.node.sg_id  
 }
 # #EKS nodes should accept all traffic from nodes with in VPC CIDR range
@@ -155,7 +134,7 @@ resource "aws_security_group_rule" "ingress_public_https" {
     cidr_blocks = ["0.0.0.0/0"]
     security_group_id = module.ingress.sg_id  
 }
-#Ingress ALB accepting traffic on 80 with http
+#Ingress ALB accepting traffic on 80
 resource "aws_security_group_rule" "ingress_public_http" {
     type = "ingress"
     from_port = 80
@@ -164,5 +143,23 @@ resource "aws_security_group_rule" "ingress_public_http" {
     cidr_blocks = ["0.0.0.0/0"]
     security_group_id = module.ingress.sg_id  
 }
+# #Node is accepting  traffic from ingress
+resource "aws_security_group_rule" "node_ingress" {
+    type = "ingress"
+    from_port = 30000
+    to_port =  32768
+    protocol = "tcp" #All traffic
+    source_security_group_id = module.ingress.sg_id # source is where you are getting traffic from.
+    security_group_id = module.node.sg_id  
+}
 
-
+#To work with this peering connection should be open default vpc and expense-vpc
+#EKS Cluster accepting all traffic from jenkins agent
+resource "aws_security_group_rule" "jenkins-agent_cluster" {
+    type = "ingress"
+    from_port = 0
+    to_port =  65535
+    protocol = "-1" # All traffic
+    cidr_blocks = ["172.31.0.0/16"]
+    security_group_id = module.cluster.sg_id  
+}

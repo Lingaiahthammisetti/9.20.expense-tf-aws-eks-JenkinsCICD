@@ -36,6 +36,23 @@ systemctl enable docker
 usermod -aG docker ec2-user
 VALIDATE $? "Docker installation"
 
+# ec2 instance creation request for Docker expense project
+# =============================================
+# RHEL-9-DevOps-Practice
+# t3.micro
+# allow-everything
+# 50 GB
+echo "******* Resize EBS Storage - start **************"
+lsblk 
+sudo growpart /dev/nvme0n1 4  #t3.micro used only
+sudo lvextend -l +50%FREE /dev/RootVG/rootVol 
+sudo lvextend -l +50%FREE /dev/RootVG/varVol 
+sudo xfs_growfs / 
+sudo xfs_growfs /var 
+echo "******* Resize EBS Storage - completed **************"
+
+
+
 # eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 mv /tmp/eksctl /usr/local/bin

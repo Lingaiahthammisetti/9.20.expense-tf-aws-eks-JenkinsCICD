@@ -38,15 +38,14 @@ module "eks" {
 
     #EKS Managed Node Group(s)
     eks_managed_node_group_defaults = {
-        instance_types = ["m6i.large","m5.large","m5n.large", "m5zn.large"]
+        instance_type = ["m6i.large","m5.large","m5n.large", "m5zn.large"]
     }
     eks_managed_node_groups = {
         blue = {
             min_size = 2
             max_size = 10
             desired_size = 2
-            #capacity_type = "SPOT"
-            capacity_type = "ON_DEMAND"
+            capacity_type = "SPOT"
             iam_role_additional_policies = {
   
              AmazonEBSCSIDriverPolicy          = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"

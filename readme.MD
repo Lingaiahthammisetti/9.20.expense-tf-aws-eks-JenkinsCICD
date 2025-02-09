@@ -116,7 +116,7 @@ helm repo add eks https://aws.github.io/eks-charts
 * Helm install command for clusters with IRSA:
 
 ```
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=expense-dev --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=expense-dev
 ```
 
 * check aws-load-balancer-controller is running in kube-system namespace.

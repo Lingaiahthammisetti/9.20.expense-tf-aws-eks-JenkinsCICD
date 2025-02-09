@@ -1,14 +1,17 @@
 variable "common_tags" {
+    type = map
     default = {
         Terraform = "true"
-        Environment = "dev"
+        Environment = "Dev"
         Project = "expense"
     }
 }
 variable "environment" {
    default =  "dev"
 }
+
 variable  "project_name" {
+  type        = string
   default = "expense"
 }
 variable "public_subnet_cidrs" {

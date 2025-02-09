@@ -8,7 +8,7 @@ variable "common_tags" {
   default =  {
      Project = "expense"
      Environment = "dev"
-     Terraform = "true"
+     Terraform = true
      Component ="ingress-alb"
   }
 }
