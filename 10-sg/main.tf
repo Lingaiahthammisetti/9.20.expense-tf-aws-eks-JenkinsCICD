@@ -50,17 +50,17 @@ vpc_id =  data.aws_ssm_parameter.vpc_id.value #We are getting the vpc_id from SS
 common_tags = var.common_tags
 sg_name = "bastion"
 }
-module "vpn" {
-#source ="../../5.12.terraform-aws-securitygroup"
-source ="git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
-project_name = var.project_name
-environment =  var.environment
-sg_description = "SG for VPN Instances"
-vpc_id =  data.aws_ssm_parameter.vpc_id.value #We are getting the vpc_id from SSM parameter for Bastion Security group
-common_tags = var.common_tags
-ingress_rules   = var.vpn_sg_rules
-sg_name = "vpn"
-}
+# module "vpn" {
+# #source ="../../5.12.terraform-aws-securitygroup"
+# source ="git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
+# project_name = var.project_name
+# environment =  var.environment
+# sg_description = "SG for VPN Instances"
+# vpc_id =  data.aws_ssm_parameter.vpc_id.value #We are getting the vpc_id from SSM parameter for Bastion Security group
+# common_tags = var.common_tags
+# ingress_rules   = var.vpn_sg_rules
+# sg_name = "vpn"
+# }
 
 # #Bastion can be accessed from public
 resource "aws_security_group_rule" "bastion_public" {
@@ -155,7 +155,7 @@ resource "aws_security_group_rule" "node_ingress" {
 
 #To work with this peering connection should be open default vpc and expense-vpc
 #EKS Cluster accepting all traffic from jenkins agent
-resource "aws_security_group_rule" "jenkins-agent_cluster" {
+resource "aws_security_group_rule" "cluster_jenkins-agent" {
     type = "ingress"
     from_port = 0
     to_port =  65535
