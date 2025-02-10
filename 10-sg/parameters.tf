@@ -8,11 +8,11 @@ resource "aws_ssm_parameter" "bastion_sg_id" {
   type  = "String"
   value =  module.bastion.sg_id
 }
-resource "aws_ssm_parameter" "vpn_sg_id" {
-  name  = "/${var.project_name}/${var.environment}/vpn_sg_id"  #This SG will store its SG id in SSM Parameter store.
-  type  = "String"
-  value =  module.vpn.sg_id
-}
+# resource "aws_ssm_parameter" "vpn_sg_id" {
+#   name  = "/${var.project_name}/${var.environment}/vpn_sg_id"  #This SG will store its SG id in SSM Parameter store.
+#   type  = "String"
+#   value =  module.vpn.sg_id
+# }
 resource "aws_ssm_parameter" "cluster_sg_id" {
   name  = "/${var.project_name}/${var.environment}/cluster_sg_id"  #This SG will store its SG id in SSM Parameter store.
   type  = "String"
