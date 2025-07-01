@@ -1,3 +1,18 @@
+# Infrastructure creation and deletion
+
+```
+for i in 00-vpc/ 10-sg/ 20-db/ 30-bastion/ 40-eks/ 50-acm/ 60-ingress-alb/ 70-ecr/ ; do cd $i; terraform init -reconfigure; cd .. ; done 
+```
+```
+for i in 00-vpc/ 10-sg/ 20-db/ 30-bastion/ 40-eks/ 50-acm/ 60-ingress-alb/ 70-ecr/  ; do cd $i; terraform plan; cd .. ; done 
+```
+```
+for i in 00-vpc/ 10-sg/ 20-db/ 30-bastion/ 40-eks/ 50-acm/ 60-ingress-alb/ 70-ecr/ ; do cd $i; terraform apply -auto-approve; cd .. ; done 
+```
+```
+for i in  70-ecr/ 60-ingress-alb/ 50-acm/ 40-eks/ 30-bastion/ 20-db/ 10-sg/ 00-vpc/; do cd $i; terraform destroy -auto-approve; cd .. ; done 
+```
+
 # Infrastructure
 
 ![alt text](eks-infra.svg)
