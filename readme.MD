@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 );
 ```
 ```
-CREATE USER IF NOT EXISTS 'expense'@'%' IDENTIFIED BY 'ExpenseApp@1';
+CREATE USER IF NOT EXISTS 'expense'@'%' IDENTIFIED BY 'ExpenseApp1';
 ```
 ```
 GRANT ALL ON transactions.* TO 'expense'@'%';
@@ -154,3 +154,12 @@ kubens expense
 ```
 kubectl get pods
 ```
+
+* Please run the 'aws configure' on jenkins-agent on ec2-user.
+aws configure
+Access Key
+Secret Access Key
+Default Region name
+Default output format
+
+
