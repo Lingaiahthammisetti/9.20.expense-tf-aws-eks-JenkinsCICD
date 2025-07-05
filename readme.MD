@@ -1,3 +1,11 @@
+
+# Project consists of below componets:
+    9.20.expense-tf-aws-eks-JenkinsCICD
+    9.21.tf-aws-eks-tools-jenkins
+    9.22.Jenkins-backend-eks
+    9.23.Jenkins-frontend-eks
+
+
 # Infrastructure creation and deletion
 
 ```
