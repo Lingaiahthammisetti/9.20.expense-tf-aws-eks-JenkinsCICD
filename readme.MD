@@ -156,11 +156,11 @@ kubectl get pods
 ```
 
 * Please run the 'aws configure' on jenkins-agent on ec2-user.
-* aws configure
-* Access Key
-* Secret Access Key
-* Default Region name
-* Default output format
+    * aws configure
+    * Access Key
+    * Secret Access Key
+    * Default Region name
+    * Default output format
 
 
 * Trouble shooting the Mysql Database:
