@@ -145,6 +145,12 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n ku
 kubectl get pods -n kube-system
 ```
 
-
-
-
+```
+kubectl get nodes
+```
+```
+kubens expense
+```
+```
+kubectl get pods
+```
