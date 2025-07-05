@@ -2,18 +2,17 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "~> 5.0"
+      version = ">= 5.92.0"
     }
   }
 
 backend "s3" {
-  bucket = "terraform-aws-eks-remote-state"
-  key = "terraform-aws-eks-eks-updated"
+  bucket = "tf-aws-eks-remote-state"
+  key = "tf-aws-eks-cicd-eks"
   region = "us-east-1"
-  dynamodb_table = "terraform-aws-eks-remote-state-locking"
+  dynamodb_table = "tf-aws-eks-locking"
   }
 }
-
 provider "aws" {
   # Configuration options
   region = "us-east-1"

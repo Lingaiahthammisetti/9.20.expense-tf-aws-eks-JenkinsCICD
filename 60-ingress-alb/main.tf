@@ -13,21 +13,53 @@ resource "aws_lb" "ingress_alb" {
         }
     )
 }
+
+# resource "aws_lb_listener" "http" {
+#   load_balancer_arn = aws_lb.ingress_alb.arn
+#   port              = "80"
+#   protocol          = "HTTP"
+
+#   default_action {
+#     type = "fixed-response"
+
+#     fixed_response {
+#       content_type = "text/html"
+#       message_body = "<h1>This is fixed response from Web ALB</h1>"
+#       status_code  = "200"
+#     }
+#   }
+# }
+
+
+# This is for expense application using http
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.ingress_alb.arn
   port              = "80"
   protocol          = "HTTP"
-  
-   default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/html"
-      message_body = "<h1>This is fixed response from Ingress ALB.</h1>"
-      status_code  = "200"
+  default_action {
+      type             = "forward"
+      target_group_arn = aws_lb_target_group.frontend.arn
     }
-  }
 }
+# resource "aws_lb_listener" "https" {
+#   load_balancer_arn = aws_lb.ingress_alb.arn
+#   port              = "443"
+#   protocol          = "HTTPS"
+#   certificate_arn   = data.aws_ssm_parameter.acm_certificate_arn.value
+#   ssl_policy        = "ELBSecurityPolicy-2016-08"  
+  
+#    default_action {
+#     type = "fixed-response"
+
+#     fixed_response {
+#       content_type = "text/html"
+#       message_body = "<h1>This is fixed response from Ingress ALB HTTPS.</h1>"
+#       status_code  = "200"
+#     }
+#   }
+# }
+
+# This is for expense application using https
 resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.ingress_alb.arn
   port              = "443"
@@ -35,16 +67,12 @@ resource "aws_lb_listener" "https" {
   certificate_arn   = data.aws_ssm_parameter.acm_certificate_arn.value
   ssl_policy        = "ELBSecurityPolicy-2016-08"  
   
-   default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/html"
-      message_body = "<h1>This is fixed response from Ingress ALB HTTPS.</h1>"
-      status_code  = "200"
+  default_action {
+      type             = "forward"
+      target_group_arn = aws_lb_target_group.frontend.arn
     }
-  }
 }
+
 resource "aws_lb_target_group" "frontend" {
   name     ="${var.project_name}-${var.environment}-frontend"
   port     = 8080
